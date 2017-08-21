@@ -1,0 +1,38 @@
+﻿@model Dictionary<MedicalClinic.Models.SymptomCategory, ICollection<MedicalClinic.ViewModels.AssignedSymptomData>>
+
+@{
+    ViewBag.Title = "New";
+    var first = Guid.NewGuid();
+    var second = Guid.NewGuid();
+}
+
+<h2>Test 2. Dictionary Binding</h2>
+
+@using (Html.BeginForm(new { action = "Test", controller = "Home" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    foreach (var kvp in Model.Values)
+    {
+        <p>
+            <input type="text" name="Model.[@first].Key" value="@kvp.Count" />
+            <input type="text" name="Model.[@first].Value" value="@kvp.ToString()" />
+            <input type="hidden" name="Model.Values.Index" value="@first" />
+        </p>
+        foreach (var symptom in kvp)
+        {
+            <p>@symptom.Name</p>
+        }
+    }
+
+    <p>
+        <input type="text" name="Model.Values[@second].Key" value="" />
+        <input type="text" name="Model.Values[@second].Value" value="" />
+        <input type="hidden" name="Model.Values.Index" value="@second" />
+    </p>
+
+    <p>
+        <input type="submit" value="Submit" />
+    </p>
+}

@@ -1,0 +1,68 @@
+﻿@using MedicalClinic.HtmlHelpers
+@{
+    ViewBag.Title = "Home";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+<article>
+    <p>
+        This is a site made with MVC 5 for a fake medical clinic.
+    </p>
+
+    <p>
+        Tutorials, books and sites used during development:
+    </p>
+    <ul>
+        <li>@HtmlHelpers.HyperLinkIfLinkExists("https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application", "\"Getting Started with Entity Framework 6 Code First using MVC 5\", tutorial by Tom Dykstra")</li>
+        <li>@HtmlHelpers.HyperLinkIfLinkExists("https://mvcmusicstore.codeplex.com/", "\"MVC Music Store\" tutorial by Jon Galloway")</li>
+        <li>@HtmlHelpers.HyperLinkIfLinkExists("https://msdn.microsoft.com", "MSDN Microsoft")</li>
+        <li>@HtmlHelpers.HyperLinkIfLinkExists("http://www.apress.com/us/book/9781430242369", "Book \"Pro ASP.NET MVC 4\" by Adam Freeman")</li>
+    </ul>
+
+    <p>
+        Texts about medical specializations come from:
+    </p>
+    <ul>
+        <li>@HtmlHelpers.HyperLinkIfLinkExists("https://en.wikipedia.org/wiki/Main_Page", "Wikipedia")</li>
+        <li>@HtmlHelpers.HyperLinkIfLinkExists("https://blog.udemy.com/different-types-of-doctors/", "Udemy blog")</li>
+    </ul>
+
+    <p>
+        Free-license pictures come from:
+    </p>
+    <ul>
+        <li>@HtmlHelpers.HyperLinkIfLinkExists("http://www.pexels.com", "Pexels")</li>
+        <li>@HtmlHelpers.HyperLinkIfLinkExists("http://www.kaboompics.com/", "Kaboompics")</li>
+        <li>@HtmlHelpers.HyperLinkIfLinkExists("http://www.gratisography.com/","Gratisography")</li>
+        <li>@HtmlHelpers.HyperLinkIfLinkExists("https://burst.shopify.com/", "Burst")</li>
+        <li>@HtmlHelpers.HyperLinkIfLinkExists("http://foter.com", "Foter")</li>
+        
+    </ul>
+
+    <p>
+        Attributions:
+    </p>
+    <ul>
+        <li>Seringe icon made by Cursor Creative from @HtmlHelpers.HyperLinkIfLinkExists("http://www.flaticon.com", "Flaticon")< </li>
+        Dentist photo Photo by Daniel Frank on Unsplash
+        <li>Architecture photos by @HtmlHelpers.HyperLinkIfLinkExists("https://www.flickr.com/photos/volvob12b/", "Bernard Spragg")</li>
+        <li><a href="http://www.freepik.com/free-vector/icons-set-about-medicine_959353.htm">Icons Designed by Freepik</a></li>
+        <li>Icons made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market">Vectors Market</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></li>
+    </ul>
+</article>
+
+<aside>
+    <h3>Site</h3>
+    <p>
+        Visit the site
+    </p>
+    <ul>
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("Doctors", "Index", "Doctor")</li>
+        <li>@Html.ActionLink("Specializations", "Index", "Specialization")</li>
+        <li>@Html.ActionLink("Departments", "Index", "Department")</li>
+    </ul>
+</aside>

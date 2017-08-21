@@ -1,0 +1,131 @@
+﻿@model MedicalClinic.Models.Doctor
+@using MedicalClinic.HtmlHelpers
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <div class="adjacent">
+
+        <h2>Doctor</h2>
+
+        @Html.HiddenFor(model => model.ID)
+    
+        <fieldset class="adjacent">
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Name)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Surname)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Surname)
+                @Html.ValidationMessageFor(model => model.Surname)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.HireDate)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.HireDate)
+                @Html.ValidationMessageFor(model => model.HireDate)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Department, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.DepartmentID, (SelectList)ViewBag.ID)
+                    @Html.ValidationMessageFor(model => model.Department)
+                </div>
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Specializations)
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <table>
+                        <tr>
+                            @{
+                                int cnt = 0;
+                                List<MedicalClinic.ViewModels.AssignedDoctorData> specializations = ViewBag.Specializations;
+
+                                foreach (var s in specializations)
+                                {
+                                    if (cnt++ % 3 == 0) //create a new row with 3 cells
+                                    {
+                                        @:</tr><tr>
+                                     }
+
+                                        @:<td>
+                                            <input type="checkbox" name="selectedSpecializations" value="@s.SpecializationID" @(Html.Raw(s.Assigned ? "checked=\"checked\"" : "")) />
+
+                                    if (HtmlHelpers.IsCorrectUrl(s.IconUrl))
+                                    {
+                                        <img alt="@s.Name" src="@s.IconUrl" width="25" height="25" />
+                                    }
+                                            @:  @s.Name
+                                            @:</td>
+                                 }
+                                        @:</tr>
+                           }
+                </table>
+            </div>
+        </div>
+            
+        <div>
+            @Html.ActionLink("Back to Doctors", "Index")
+        </div> 
+
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+
+
+        <div class="adjacent">
+            <div class="editor-label">
+                @Html.Label("Image")
+            </div>
+            <img id="img_change_src" alt="@Url.Content(Model.FullName)" src="@Model.ImageUrl" /><br />
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ImageUrl)
+            </div>
+            <div class="editor-field"  onchange = "form.submit();">
+                @Html.EditorFor(model => model.ImageUrl)
+                @Html.ValidationMessageFor(model => model.ImageUrl)
+            </div>
+        </div>
+
+    </div>
+                   
+
+}
+ 
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+<script type="text/javascript">
+
+    $('#mtl').click(
+        function ()
+        {
+        
+        });
+
+</script>

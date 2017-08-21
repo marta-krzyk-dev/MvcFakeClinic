@@ -1,0 +1,70 @@
+﻿@model List<MedicalClinic.ViewModels.AssignedSymptomData>
+@using MedicalClinic.Models;
+@using MedicalClinic.ViewModels;
+
+@{
+    ViewBag.Title = "Test";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <h2>Check your symptoms for possible diseases and medical conditions</h2>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <table>
+                @{
+                    SymptomCategory previousCategory = SymptomCategory.Dermatological;
+                    AssignedSymptomData previous = null;
+
+                    int cnt = 0;
+                    int i = 0;
+                    foreach (var item in Model)
+                    {
+                        if (previous == null || previous.Category != item.Category)
+                        {
+                            cnt = 0;
+                            @:<tr><td>
+                                <h3 style="text-decoration:underline">@Html.DisplayFor(modelItem => item.Category)</h3>
+                            @:</td></tr><tr>        
+
+                        }
+                        previousCategory = item.Category;
+                        previous = item;
+
+                        if (cnt++ % 3 == 0)
+                        {
+                            @:</tr><tr>
+                        }
+
+                        <td>
+                            @Html.HiddenFor(m => m[i].SymptomId)
+                            @Html.HiddenFor(m => m[i].Name)
+                            @Html.CheckBoxFor(m => m[i].Assigned)
+                            @Html.Raw(Model[i].Name)
+                        </td>
+                        ++i;
+                    }
+                    @:</tr>
+
+                }
+ </table>
+
+        </div>
+    </div>
+
+    <div>
+        <p>
+           <h3>None of your symptoms are listed?</h3>
+           Contact one of our @Html.ActionLink("doctors", "Index", "Doctor") for a full checkup.
+        </p>
+    </div>
+
+    <p>
+        <input type="submit" value="Submit" />
+    </p>
+
+}

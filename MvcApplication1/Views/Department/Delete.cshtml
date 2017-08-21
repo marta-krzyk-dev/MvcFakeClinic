@@ -1,0 +1,56 @@
+﻿@model MedicalClinic.Models.Department
+@using MedicalClinic.HtmlHelpers
+
+<style>
+    td, th {
+        vertical-align: top;
+        padding-bottom: 2em;
+        white-space: nowrap;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2 class="delete_label">Delete</h2>
+
+<h3 class="delete_label">Are you sure you want to delete this?</h3>
+
+
+<table>
+    <tr></tr>
+<tr>
+    <td width="auto">
+        <h2>@Model.Name</h2>
+
+        @Model.City
+        @Model.PostalCode <br />
+        @Model.Street
+        @Model.HouseNumber<br />
+
+        <h2>Contact</h2>
+        <img src="~/Content/Images/phone_icon.png" width="25" />
+        @Html.DisplayFor(modelItem => Model.PhoneNumber)
+
+        <br />
+
+        @HtmlHelpers.EmailHyperLinkImage(Model.Email)
+
+    </td>
+
+    <td>
+        @if (Model.ImageUrl != null)
+        {
+            <img src="@Model.ImageUrl" title="@Model.Name" style="display:block; width:100%; height:auto;" />
+        }
+    </td>
+</tr>
+</table>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input class="delete" type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to Departments", "Index")
+    </p>
+}

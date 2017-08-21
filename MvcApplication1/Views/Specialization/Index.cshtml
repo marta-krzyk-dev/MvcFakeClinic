@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MedicalClinic.Models.Specialization>
+@using MedicalClinic.HtmlHelpers
+
+@{
+    ViewBag.Title = "Medical specializations";
+}
+
+<style>
+    .flex-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 5% 30px;
+        display: flex;
+        -webkit-flex-flow: row wrap;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+    }
+
+    .flex-item {
+        flex-basis: 23%;
+        background-color: aqua;
+        font-size: 1.3em;
+        border-radius: 4px;
+        padding: 15px 30px;
+        margin: 4px;
+        background: #ccc;
+        -webkit-flex: 1 0 auto;
+        flex: 1 0 auto;
+        width: 20%;
+    }
+    </style>
+
+<h1 style="text-align:center">Specializations</h1>
+
+<p style="text-align:center">
+    @Html.ActionLink("Create New", "Create")
+</p>
+  
+<section class="flex-container">  
+     
+    @foreach (var item in Model)
+    {
+            <div class="flex-item" align="center">
+                @if (HtmlHelpers.IsCorrectUrl(item.IconUrl))
+                {
+                    <img alt="@item.Name" src="@item.IconUrl" width="50" height="50" />
+                }
+                else
+                {
+                    //Display an empty image
+                    <img width="50" height="50" style="opacity:0"/>
+                }
+
+                <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+
+                @Html.ActionLink("Edit", "Edit", new { id = item.SpecializationId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SpecializationId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SpecializationId })
+
+            </div>  
+    }
+</section>
+

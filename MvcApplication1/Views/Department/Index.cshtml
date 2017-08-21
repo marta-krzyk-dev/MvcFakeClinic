@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MedicalClinic.Models.Department>
+@using MedicalClinic.HtmlHelpers
+
+@{
+    ViewBag.Title = "Departments";
+}
+<style>
+    td, th {
+        vertical-align: top;
+        padding-bottom: 2em;
+        white-space: nowrap;
+    }
+</style>
+
+<h2>Clinic departments</h2>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table>
+    @foreach (var item in Model)
+    {
+        <tr></tr>
+
+        <tr>
+            <td width="auto">
+                <h2>@item.Name</h2> 
+
+                @item.City
+                @item.PostalCode <br />
+                @item.Street
+                @item.HouseNumber<br />
+
+                <h2>Contact</h2>
+                <img src="~/Content/Images/phone_icon.png" width="25" />
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+
+                <br/>
+
+                @if (false == String.IsNullOrWhiteSpace(item.Email))
+                {
+                    @HtmlHelpers.EmailHyperLinkImage(item.Email)
+                }
+            </td>
+
+            <td>
+                @if (item.ImageUrl != null)
+                {
+                    <img src="@item.ImageUrl" title="@item.Name" style="display:block; width:100%; height:auto;" />
+                }
+            </td>
+        </tr>
+
+        <tr align="right">
+            <td></td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+</table>

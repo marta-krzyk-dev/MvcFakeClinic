@@ -1,0 +1,59 @@
+﻿@model IList<MedicalClinic.ViewModels.AssignedSymptomData>
+@using MedicalClinic.ViewModels;
+@using MedicalClinic.Models; 
+
+@{
+    ViewBag.Title = "Symptoms";
+}
+
+
+
+@if (Model.All(m => m.Assigned == false))
+{
+    <h1>TEST</h1>
+    //GET - TAKE TEST
+    using (Html.BeginForm())
+    {
+       @Html.ValidationSummary(true)
+
+        for (int i = 0; i < Model.Count(); ++i)
+        {
+            <div><label name ="@("[" + i + ".Name") "value="@("[" + i + "].Name")"></label></div>
+            //generates: <Input id="Model[i].Name" name="Model[i].Name" type="text" value=""/>
+            <fieldset>
+                <legend>Symptom @(i + 1)</legend>
+                <div><label>Category</label>@Html.Label("[" + i + "].Category", htmlAttributes: "name=[" + i + "].Category")@Html.Editor("[" + i + "].Category")</div>
+
+                <div><label>Name</label>@Html.Editor("[" + i + "].Name")</div>
+
+                <label for=@("[" + i + "]Category")></label>
+                <input name="type" id="check" type="checkbox" value="@Model[i].SymptomId" @Html.Raw(Model[i].Assigned ? "checked" : "") />@Model[i].Name
+                <div><label>Name</label>@Html.Editor("[" + i + "].Name")</div>
+            </fieldset>
+        }
+        <button type="submit">Submit</button>
+    }
+}
+else
+{
+    <h1>POST - RESULTS</h1>
+    //POST - RESULTS
+    foreach (var asd in Model)
+    {
+        if (asd.Assigned)
+        {
+            <p>@asd.Name</p>
+        }
+    }
+
+    for (int i = 0; i < Model.Count; ++i)
+    {
+        if (Model[i].Assigned)
+        {
+            <p>@(Model[i].Category + " " + Model[i].Name)</p>
+
+        }
+    }
+
+    @Html.ActionLink("Go back", "Symptoms");
+}

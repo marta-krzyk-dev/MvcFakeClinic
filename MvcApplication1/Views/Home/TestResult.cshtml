@@ -1,0 +1,76 @@
+﻿@model List<MedicalClinic.ViewModels.ViewModelDisease>
+@using MedicalClinic.HtmlHelpers
+@{
+    ViewBag.Title = "Test result";
+}
+
+<style>
+
+    tr.border_bottom td {
+        border-bottom: 1pt solid black;
+    }
+</style>
+<h2>Test result</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    if (Model == null)
+    {
+        <p class="delete_label">@ViewBag.Error</p>
+    }
+    else
+    {
+        if (Model.Count() == 0)
+        {
+    <h3>No symptoms checked</h3>
+    <p>
+        Contact one of our @Html.ActionLink("doctors", "Index", "Doctor") for a full checkup and make sure you are healthy.
+    </p>
+        }
+        else
+        {
+<h3>Based on your symptoms you may suffer from:</h3>
+
+<table>
+
+    @foreach (var item in Model)
+    {
+        <tr class="border-bottom"><td><h2>@item.Name</h2></td></tr>
+
+        <tr>
+            <td valign="top">
+                Your symptoms:
+                <ul>  
+                    @foreach (var symptom in item.AssignedSymptoms)
+                    {
+                        <li>@symptom</li>
+                    }
+                </ul>
+            </td>
+
+
+            @if (item.OtherSymptoms.Count() > 0)
+            {
+                <td valign="top"> 
+                    Other symptoms:
+                    <ul>
+                        @foreach (var symptom in item.OtherSymptoms)
+                        {
+                            <li>@symptom</li>
+                        }
+                    </ul>
+                </td>
+            }
+        </tr>
+    }
+</table>
+        }
+    }
+}
+    <p>
+        <button onclick="location.href='@Url.Action("Test", "Home")';return false;">Take the test again</button>
+    </p>
+       
+    

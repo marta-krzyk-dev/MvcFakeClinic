@@ -1,0 +1,33 @@
+﻿@model IEnumerable<MedicalClinic.Models.Specialization>
+
+@{
+    ViewBag.Title = "Medical specializations";
+}
+
+
+
+<h1>Specializations</h1>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+   
+@foreach (var item in Model) {
+    <tr>
+        <td>
+             <img alt="@item.Name" src="@item.IconUrl" width="50" height="50"/>   
+        </td>
+        <td>
+            <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SpecializationId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SpecializationId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SpecializationId })
+        </td>
+    </tr>
+}
+
+</table>

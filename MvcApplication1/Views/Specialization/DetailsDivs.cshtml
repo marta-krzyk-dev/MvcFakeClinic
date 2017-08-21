@@ -1,0 +1,68 @@
+﻿@model MedicalClinic.Models.Specialization
+@using MedicalClinic.HtmlHelpers
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+
+    @if (HtmlHelpers.IsCorrectUrl(Model.IconUrl))
+    {
+        <img alt="@Model.Name" src="@Model.IconUrl" width="50" />
+    }
+    <h2 style='display:inline;'>@Model.Name</h2>
+</div>
+
+<div class="adjacent" >
+    <div class="adjacent"style="width:50%; display: inline-block">
+
+        <fieldset>
+
+            <div class="display-label">
+                @Html.LabelFor(model => model.Description)
+            </div>
+
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Description)
+            </div>
+
+            <div class="display-label">
+                @Html.Label(Model.DoctorName + "s at our clinics")
+            </div>
+        </fieldset>
+
+        @{
+            if (Model.Doctors.Count > 0)
+            {
+                <table>
+                    @foreach (var doctor in Model.Doctors)
+                    {
+                        <tr>
+                            <td>
+                                @if (HtmlHelpers.IsCorrectUrl(doctor.ImageUrl))
+                                {
+                                    <img alt="@Url.Content(doctor.FullName)" src="@doctor.ImageUrl" width="80" />
+                                }
+                            </td>
+                            <td>@Html.ActionLink(doctor.FullName, "Details", "Doctor", new { id = doctor.ID }, null), @Html.ActionLink(linkText: doctor.Department.Name, actionName: "Details", controllerName: "Department", routeValues: new { id = doctor.DepartmentID }, htmlAttributes: null)</td>
+                        </tr>
+                    }
+                </table>
+            }
+         }
+    </div>
+
+    <div class="adjacent">
+
+        @if (HtmlHelpers.IsCorrectUrl(Model.ImageUrl))
+        {
+            <img alt="@Model.Name" src="@Model.ImageUrl" />
+        }
+    </div>
+ </div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SpecializationId }) |
+    @Html.ActionLink("Back to Specializations", "Index")
+</p>

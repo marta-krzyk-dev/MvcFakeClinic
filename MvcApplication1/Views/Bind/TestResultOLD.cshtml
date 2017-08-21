@@ -1,0 +1,58 @@
+﻿@model IEnumerable<MedicalClinic.Models.Symptom>
+
+@{
+    ViewBag.Title = "Test result";
+}
+
+<h2>Test result</h2>
+@if (Model.Count() == 0)
+{
+    <h3>Congratulations, you are healthy!</h3>
+}
+else
+{
+    if (Model.Count() == 1)
+    {
+        <h3>Based on your symptom you may suffer from:</h3>
+    }
+    else
+    {
+        <h3>Based on your symptoms you may suffer from:</h3>
+    }
+
+<table>
+@foreach (var item in Model)
+{ 
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h3>Possible diseases and conditions</h3>
+        </td>
+    </tr>
+
+    foreach (var disease in item.Diseases)
+    {
+        <tr><td>@disease.Name</td></tr>
+
+        <tr><td>Other symptoms</td></tr>
+
+        foreach(var symptom in disease.Symptoms)
+        {
+            if (symptom.SymptomId != item.SymptomId)
+            {
+                <tr><td>@symptom.Name</td></tr>
+            }
+        }
+        <tr>
+            <td>Contact one of our @Html.ActionLink(disease.Specialization.DoctorName + "s", "Index", "Specialization", new { id = disease.Specialization.SpecializationId}, null)</td>
+        </tr>
+    }
+
+}
+
+</table>
+}

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<MedicalClinic.Models.Doctor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Doctors at our clinic</h2>
+
+<p>@ViewBag.Error</p>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+            Doctor
+       
+            @Html.DisplayNameFor(model => model.Specializations)
+       
+            Experience
+        
+            @Html.DisplayNameFor(model => model.Email)
+      
+
+@foreach (var item in Model) {
+   <div>
+            @if (null != (item.ImageUrl))
+            {
+                <img alt="@item.Name" src="@item.ImageUrl" width="100" />
+            }
+        
+            @Html.DisplayFor(modelItem => item.FullName)
+       
+            @{
+                if (item.Specializations.Count == 0)
+                {
+                    @:General
+                }
+                foreach (var s in item.Specializations)
+                {
+                    @Html.ActionLink(linkText: @s.Name, actionName: "Details", controllerName: "Specialization", routeValues: new { id = s.SpecializationId }, htmlAttributes: null) <br />
+                }
+            }
+       
+
+        
+            @Html.DisplayFor(modelItem => item.YearsOfExperience) 
+            @if (item.YearsOfExperienceInt == 1)
+            { 
+                @: year
+            }
+            else
+            { 
+                @: years
+            }
+
+        
+       
+
+       
+            @Html.DisplayFor(modelItem => item.Email)
+        
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+       </div>
+}
+
+

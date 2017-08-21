@@ -1,0 +1,102 @@
+﻿@model MedicalClinic.Models.Department
+@using MedicalClinic.HtmlHelpers
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<style>
+    td, th {
+        vertical-align: top;
+        padding-bottom: 2em;
+        white-space: nowrap;
+        vertical-align: top;
+        
+    }
+    tr {
+        height: 0;
+    }
+</style>
+
+<table style="table-layout: fixed;">
+        <tr></tr>
+
+        <tr>
+            <td width="auto">
+                <h2>@Model.Name</h2>
+
+                @Model.City
+                @Model.PostalCode <br />
+                @Model.Street
+                @Model.HouseNumber<br />
+
+                <h2>Contact</h2>
+                <img src="~/Content/Images/phone_icon.png" width="25" />
+                @Html.DisplayFor(modelItem => Model.PhoneNumber)
+
+                <br />
+
+                @if (false == String.IsNullOrWhiteSpace(Model.Email))
+                {
+                    @HtmlHelpers.EmailHyperLinkImage(Model.Email)
+                }
+            </td>
+
+            <td>
+                @if (Model.ImageUrl != null)
+                {
+                    <img src="@Model.ImageUrl" title="@Model.Name" style="display:block; width:100%; height:auto;" />
+                }
+            </td>
+        </tr>
+
+    <tr>
+        <td colspan="2">
+            <table>
+                <tr><th colspan="2">@Html.Label("Doctors at " + Model.Name)</th></tr>
+
+                @foreach (var doctor in Model.Doctors)
+                {
+                    <tr>
+                        <td>
+                            @if (HtmlHelpers.IsCorrectUrl(doctor.ImageUrl))
+                            {
+                                <a href='@Url.Action("Details", "Doctor", new { id = doctor.ID }, null)'>
+                                <img alt="@Url.Content(doctor.FullName)" src="@doctor.ImageUrl" width="100" />
+                                </a>
+                            }
+                        </td>
+                   
+                       <td>
+                           @Html.ActionLink(doctor.FullName, "Details", "Doctor", new { id = doctor.ID }, null)<br /><br/>
+                      
+                            @{
+                                if (doctor.Specializations.Count == 0)
+                                {
+                                    @:General practitioner<br/>
+                                }
+                                foreach (var s in doctor.Specializations)
+                                {
+                                    if (HtmlHelpers.IsCorrectUrl(s.IconUrl))
+                                    {
+                                        <img src="@s.IconUrl" width="20" />
+                                    }
+                                    @Html.ActionLink(linkText: @s.DoctorName, actionName: "Details", controllerName: "Specialization", routeValues: new { id = s.SpecializationId }, htmlAttributes: null)<br />
+                                }
+
+                            }
+                        </td>
+                    </tr>
+                }
+            
+            </table>
+        </td>
+    </tr>
+</table>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Delete", "Delete", new { id = Model.ID }) |
+    @Html.ActionLink("Back to Departments", "Index")
+</p>

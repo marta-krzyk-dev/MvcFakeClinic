@@ -1,0 +1,89 @@
+﻿@model MedicalClinic.Models.Doctor
+@using MedicalClinic.HtmlHelpers
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<h2>Details</h2>
+
+<table>
+    <tr>
+        <td rowspan="100">
+        
+        @if (null != (Model.ImageUrl))
+        {
+            <img alt="@Model.Name" src="@Model.ImageUrl" style="width:200px"/>
+            @HtmlHelpers.HyperLink(Model.AccreditationUrl, Model.AccreditationText, new { @class = "accreditation-under-pic"})
+        }
+        </td>
+    </tr>
+
+    <tr>
+        <th colspan="2"><h2>@Model.FullName</h2></th>
+    </tr>
+
+    <tr>
+        @{
+            if (Model.Specializations.Count == 0)
+            {
+                <td></td>
+                <td>General practitioner</td>
+            }
+            foreach (var s in Model.Specializations)
+            {
+                <td>
+                    @if (HtmlHelpers.IsCorrectUrl(s.IconUrl))
+                    {
+                        <img alt="@s.Name" src="@s.IconUrl" width="25" height="25" />
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink(linkText: @s.DoctorName, actionName: "Details", controllerName: "Specialization", routeValues: new { id = s.SpecializationId }, htmlAttributes: null)
+                </td>
+            }
+        }
+    </tr>
+
+    <tr>
+
+    <tr>
+        <td></td>
+        <td>
+            @Html.DisplayFor(model => model.YearsOfExperience)
+        </td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td>
+            With us from @Model.HireDate.ToShortDateString()
+        </td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td>
+            Works at @Html.ActionLink(Model.Department.Name, "Details", "Department", new { id = Model.Department.ID }, null)
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <img src="~/Content/Images/phone_icon.png" width="25" />
+        </td>
+        <td>To request an appointment<br/>
+        call at <b>@Model.Department.PhoneNumber</b></td>
+    </tr>
+    <tr>
+
+        <td><img src="~/Content/Images/mail_icon.png" width="25" /></td>
+        <td>@HtmlHelpers.EmailHyperLink(text: "Ask a question", email: Model.Email)</td>
+
+    </tr>
+</table>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to Doctors", "Index")
+</p>

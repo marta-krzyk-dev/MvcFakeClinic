@@ -1,0 +1,9 @@
+﻿@helper EmailHyperLink(string email, string title)
+{
+    <a href="mailto:@email">@title</a>
+}
+
+@helper EmailHyperLink(string email)
+{
+    <a href="mailto:@email">@email</a>
+}

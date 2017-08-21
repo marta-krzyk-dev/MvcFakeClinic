@@ -1,0 +1,82 @@
+﻿@model MedicalClinic.Models.Specialization
+@using MedicalClinic.HtmlHelpers
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<style>
+    textarea {
+         column-count: 100;
+         grid-auto-rows:auto;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Specialization</legend>
+
+        @Html.HiddenFor(model => model.SpecializationId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DoctorName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DoctorName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Description, 10, 100, null)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        
+
+        <div class="editor-label">
+          
+            @Html.LabelFor(model => model.IconUrl)
+        </div>
+        <div class="editor-field">
+            @if (HtmlHelpers.IsCorrectUrl(Model.IconUrl))
+            {
+                <img alt="@Model.Name" src="@Model.IconUrl" width="50" height="50" />
+            }
+            @Html.EditorFor(model => model.IconUrl)
+            @Html.ValidationMessageFor(model => model.IconUrl)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ImageUrl)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ImageUrl)
+            @Html.ValidationMessageFor(model => model.ImageUrl)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+
+    }
+<div>
+    @Html.ActionLink("Back to Specializations", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,87 @@
+﻿@*@model IEnumerable<MedicalClinic.ViewModels.AssignedSymptomData>*@
+@model Dictionary<MedicalClinic.Models.SymptomCategory, List<MedicalClinic.ViewModels.AssignedSymptomData>>
+@using MedicalClinic.Models;
+@using MedicalClinic.ViewModels;
+
+@{
+    ViewBag.Title = "Simplest test";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <h2>Check your symptoms for possible diseases and medical conditions</h2>
+
+    @*<input type="button" id="selectButton" onchange="selectAll()" value="Select all" />
+        <input type="button" id="disselectButton" onchange="disselectAll()" value="Disselect all" />*@
+
+    <script type="text/javascript">
+
+    function selectAll() {
+        var checkboxes = document.getElementsById("check");
+
+        for (var i = 0; checkboxes[i]; ++i) {
+            checkboxes[i].checked = true;
+        }
+    }
+    </script>
+
+
+<table>
+                @{
+                    int cnt = 0;
+                    foreach (var item in Model)
+                    {
+                            <tr>
+                                <td>
+                                    <h3 style="text-decoration:underline">@Html.DisplayFor(modelItem => item.Key)</h3>
+                                    @Html.HiddenFor(modelItem => item.Key)
+                                </td>
+                            </tr>
+                            @:<tr>
+
+                        int i = 0;
+                        cnt = 0;
+                        foreach (var symptom in item.Value)
+                        {
+                            if (cnt++ % 3 == 0)
+                            {
+                                @:</tr><tr>
+                            }
+
+                            <td>
+                                @Html.HiddenFor(modelItem => item.Value[i].SymptomId)
+                                @Html.HiddenFor(modelItem => item.Value[i].Name)
+                                @Html.CheckBoxFor(modelItem => item.Value[i].Assigned)
+                                @Html.DisplayFor(modelItem => item.Value[i].Name)
+                               
+                                @*@Html.Raw(item.Value[i].Name)*@
+                            </td>
+                            ++i;
+                        }
+
+
+
+        <td>
+           
+
+            
+        </td>
+                  
+                }
+                @:</tr>
+
+
+
+
+
+                }
+            </table>
+
+    <p>
+        <input type="submit" value="Submit" />
+    </p>
+
+                                }

@@ -1,0 +1,103 @@
+﻿@model IEnumerable<MedicalClinic.Models.Doctor>
+@using MedicalClinic.HtmlHelpers
+@using System.Text
+
+<style>
+
+    tr.last {
+        margin-bottom: 150px;
+    }
+    table#test {
+        border-collapse: collapse;
+    }
+
+    TABLE#test, tr#test, td#test {
+        border: 5px solid black;
+    }
+</style>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Doctors at our clinic</h2>
+<p>@ViewBag.Error</p>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <p>
+        <b>Select by specialization:</b> @Html.DropDownList("SpecList", ViewBag.SpecializationList as SelectList, "Select all", new { onchange = @"form.submit();" })
+    </p>
+
+    <p>         
+        <b>Find by name or surname: </b>
+        @if (String.IsNullOrEmpty(ViewBag.searchString))
+        {
+            @Html.TextBox("SearchString")
+        }
+        else
+        {
+            @Html.TextBox("SearchString", (string)ViewBag.searchString.ToString())
+        }
+        
+        <input type="submit" value="Search" />
+    </p>
+} 
+
+<p>
+    @if (ViewBag.NameSortParm == "name_desc")
+    {
+        
+            @Html.ActionLink("Order by Surname (descending) ▲", "Index", new { sortOrder = ViewBag.NameSortParm, SpecList = ViewBag.SpecList })
+    }
+    else
+    {
+        @Html.ActionLink("Order by Surname (ascending) ▼", "Index", new { sortOrder = ViewBag.NameSortParm, SpecList = ViewBag.SpecList })
+    }
+
+        @if (ViewBag.DateSortParm == "Date")
+        {
+           @Html.ActionLink("Order by Experience (descending) ▲", "Index", new { sortOrder = ViewBag.DateSortParm, SpecList = ViewBag.SpecList })
+        }
+        else
+        {
+           @Html.ActionLink("Order by Experience (ascending) ▼", "Index", new { sortOrder = ViewBag.DateSortParm, SpecList = ViewBag.SpecList }) 
+        }
+</p>
+
+@if (Model.Count() == 0) // No results in filtering doctors
+{
+    <div><h2><b>No results</b></h2></div>
+    <div>
+        @Html.ActionLink("Back to Doctors", "Index")
+    </div>
+}
+
+<table style="margin-top:50px;">
+
+@foreach (var item in Model)
+{
+    Html.RenderPartial("DoctorSummary", item);
+}
+</table>
+
+<div class="accreditation">
+    
+    @{
+        if (Model.Where(d => !String.IsNullOrEmpty(d.AccreditationUrl)).Count() > 0)
+        {
+            <h4>Accreditations</h4>
+        }
+
+        foreach (var d in Model)
+        {
+            @HtmlHelpers.HyperLink(d.AccreditationUrl, d.AccreditationText);
+        }
+     }
+</div>

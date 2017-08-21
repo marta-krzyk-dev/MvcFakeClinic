@@ -1,0 +1,84 @@
+﻿@model MedicalClinic.Models.Specialization
+@using MedicalClinic.HtmlHelpers
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@*<style>
+    td,tr {
+        
+        margin-top: 0px;
+    }
+    table {
+        
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+</style>*@
+<div>
+
+    @if (HtmlHelpers.IsCorrectUrl(Model.IconUrl))
+    {
+        <img alt="@Model.Name" src="@Model.IconUrl" width="50" />
+    }
+    <h2 style='display:inline;'>@Model.Name</h2>
+</div>
+
+
+<table  align="left" style="table-layout:fixed; width:100%;">
+    <tr>
+        <td valign="top">@Html.LabelFor(model => model.Description)</td>
+        <td rowspan="100" width="60%" valign="top">
+            @if (HtmlHelpers.IsCorrectUrl(Model.ImageUrl))
+            {
+                <img alt="@Model.Name" src="@Model.ImageUrl" style="display:block; width:100%; height:auto;" />
+            }
+            else
+            {
+                //Display an empty image
+                <img width="50" height="50" style="opacity:0" />
+            }
+        </td>
+    </tr>
+
+    <tr>
+        
+        <td valign="top" style="overflow:visible; word-wrap:break-word">@Html.DisplayFor(model => model.Description)</td>
+    </tr>
+
+    @{
+        if (Model.Doctors.Count > 0)
+        {
+    <tr><td>
+    <table>
+        <tr><th colspan="2"><h3>@Html.ActionLink(Model.DoctorNamePlural + " at our clinics", "Index", "Doctor", new { SpecList = Model.SpecializationId }, null)</h3></th></tr>
+
+        @foreach (var doctor in Model.Doctors)
+        {
+            <tr>
+                <td>
+                    @if (HtmlHelpers.IsCorrectUrl(doctor.ImageUrl))
+                    {
+                        <a href='@Url.Action("Details", "Doctor", new { id = doctor.ID }, null)'>
+                        <img alt="@Url.Content(doctor.FullName)" src="@doctor.ImageUrl" width="80" />
+                        </a>
+                    }
+                </td>
+                <td>@Html.ActionLink(doctor.FullName, "Details", "Doctor", new { id = doctor.ID }, null), @Html.ActionLink(linkText: doctor.Department.Name, actionName: "Details", controllerName: "Department", routeValues: new { id = doctor.DepartmentID }, htmlAttributes: null)
+                </td>
+            </tr>
+        }
+    </table>
+</td></tr>
+        }
+    }
+       
+</table>
+
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SpecializationId }) |
+    @Html.ActionLink("Back to Specializations", "Index")
+</p>

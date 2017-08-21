@@ -1,0 +1,69 @@
+﻿@model Dictionary<MedicalClinic.Models.SymptomCategory, ICollection<MedicalClinic.ViewModels.AssignedSymptomData>>
+
+@{
+    ViewBag.Title = "Test";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+<h2>Check your symptoms for possible diseases and medical conditions</h2>
+
+<input type="button" id="selectButton" onchange="selectAll()" value="Select all" />
+<input type="button" id="disselectButton" onchange="disselectAll()" value="Disselect all" />
+
+<script>
+    function selectAll() {
+        var checkboxes = document.getElementsById("checkbox");
+
+        for (var i = 0; checkboxes[i]; ++i) {
+            checkboxes[i].checked = true;
+        }
+    }
+</script>
+
+<style>
+    tr:hover a {
+        text-decoration: underline;
+    }
+</style>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <table>
+
+            @foreach (var item in Model)
+            {
+                <tr class="hover">
+                    <td colspan="3">
+                        <h3>@Html.DisplayFor(modelItem => item.Key)</h3>
+                    </td>
+                </tr>
+
+                <tr>
+                    @{
+                        int cnt = 0;
+                        foreach (var s in item.Value)
+                        {
+                            if (cnt++ % 3 == 0)
+                            {
+                                @:</tr><tr>
+                            }
+                            @:<td style="vertical-align:text-top;">
+                                <input id="checkbox" type="checkbox" name="selectedSymptoms" value="@s.SymptomId" @Html.Raw(s.Assigned ? "checked" : "") />@s.Name
+                            
+                            @:</td>
+                        }
+                      }
+                </tr>
+        }
+       </table>
+       </div>
+       </div>
+
+    <p>
+        <input type="submit" value="Submit" />
+    </p>
+
+}

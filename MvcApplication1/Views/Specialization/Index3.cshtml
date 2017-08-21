@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MedicalClinic.Models.Specialization>
+
+@{
+    ViewBag.Title = "Medical specializations";
+}
+
+
+<h1>Specialization</h1>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+    
+<h2>@Html.DisplayNameFor(model => model.Name)</h2>
+    
+@{ int i = 0; }
+<table border="1">  
+     
+    @foreach (var item in Model)
+    {
+        if (i % 4 == 0)
+        {
+            @Html.Raw("<tr>")
+        }
+
+        <td>
+            <div width="158px" align="center" style="float:left; margin:25px; ">
+
+                <img alt="@item.Name" src="@item.IconUrl" width="50" height="50" />
+
+                <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+
+                @Html.ActionLink("Edit", "Edit", new { id = item.SpecializationId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SpecializationId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SpecializationId })
+
+            </div>
+        </td>
+        if (i++ % 4 == 3) {
+    @Html.Raw("</tr>")}
+            }
+         @if ((i - 1) % 4 != 3) {@Html.Raw("</tr>") }  
+</table>
+

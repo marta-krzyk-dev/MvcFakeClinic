@@ -1,0 +1,74 @@
+﻿@model MedicalClinic.Models.Doctor
+@using MedicalClinic.HtmlHelpers
+
+@{ 
+    int numberOfRows = 5 + Model.Specializations.Count();
+}
+<tr valign="top">
+    <td rowspan="@numberOfRows" style="width:150px;height:auto">
+        @if (@HtmlHelpers.IsCorrectUrl(Model.ImageUrl))
+        {
+            <img alt="@Model.Name" src="@Model.ImageUrl" style="width:inherit; height:auto" />
+        }
+    </td>
+    
+</tr>
+
+<tr>
+    <td valign="top" colspan="5">
+        <h2 style="padding: 0px; border:0px; display:inline; ">@Html.DisplayFor(modelItem => Model.FullName)</h2>
+    </td>
+    <td rowspan="@numberOfRows" valign="top">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Details", "Details", new { id = Model.ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.ID })
+    </td>
+</tr>
+
+
+    @{
+        if (Model.Specializations.Count == 0)
+        {
+            <tr>
+                <td width="20"></td>
+                <td>General practitioner</td>
+            </tr>
+        }
+        foreach (var s in Model.Specializations)
+        {
+            <tr>
+            @if (!String.IsNullOrWhiteSpace(HttpContext.Current.Server.MapPath(s.IconUrl)))
+            {
+                <td width="25"><img src="@s.IconUrl" width="25" /></td>
+            }
+            else
+            {
+                <td width="25"></td>
+            }
+            <td>
+                @Html.ActionLink(linkText: @s.DoctorName, actionName: "Details", controllerName: "Specialization", routeValues: new { id = s.SpecializationId }, htmlAttributes: null)
+            </td>
+            </tr>
+        }
+
+    }
+
+<tr>
+    <td width="25"></td>
+    <td>
+        @Html.ActionLink(linkText: "at " + @Model.Department.Name, actionName: "Details", controllerName: "Department", routeValues: new { id = Model.DepartmentID }, htmlAttributes: null)
+    </td>
+</tr>
+<tr>
+    <td width="25"></td>
+    <td>
+        @Model.YearsOfExperience
+    </td>
+</tr>
+
+<tr style="height:100%; vertical-align:top;">
+    <td width="25"><img src="~/Content/Images/mail_icon.png" width="20" /></td>
+    <td>
+        @HtmlHelpers.EmailHyperLink(Model.Email, "Ask a question")
+    </td>
+</tr>

@@ -1,0 +1,39 @@
+﻿@model IList <MedicalClinic.Models.AddressSummary>
+    
+@{
+    ViewBag.Title = "Addresses";
+}
+
+<h2>Addresses</h2>
+
+
+@if (Model.Count() == 0)
+{
+    using (Html.BeginForm())
+    {
+        for (int i = 0; i < 3; ++i)
+        {
+            <fieldset>
+                <legend>Address @(i+1)</legend>
+                <div><label>City</label>@Html.Editor("[" + i + "].City")</div>
+                <div><label>Country</label>@Html.Editor("[" + i + "].Country")</div>
+                <div><label>In Europe</label>
+                    <input type="hidden" value="false" name="@("[" + i + "].InEurope")" />
+
+                <input type="checkbox" name="@("[" + i + "].InEurope")"/></div>
+                
+            </fieldset>
+        }
+        <button type="submit">Submit</button>
+    }
+}
+else
+{
+    foreach (var addressSummary in Model)
+    {
+        <p>@addressSummary.City, @addressSummary.Country,
+        @addressSummary.InEurope</p>
+    }
+
+    @Html.ActionLink("Go back", "Addresses");
+}
