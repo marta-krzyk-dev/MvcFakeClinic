@@ -7,7 +7,6 @@ This project is a site made with ASP.NET MVC 5, Entity Framework and Visual Stud
 - usage of Entity Framework, Data Annotations
 - Model binding of custom data including Dictionaries, Lists of custom classes
 - passing data from Controllers to Views through ViewBag, TempData
-- HTML, custom CSS classes
         
  ## Test
 ![alt tag](https://github.com/marta-krzyk-dev/MvcFakeClinic/blob/master/Printscreens/test.png?raw=true)
