@@ -55,6 +55,7 @@ Free-license pictures come from:
 - [Foter](http://foter.com)
 
 Architecture photos by [Bernard Spragg](https://www.flickr.com/photos/volvob12b/)
+
 Logo made by [Freepik](http://freepik.com) from [Flaticon](http://flaticon.com) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 
 Doctor photos:
