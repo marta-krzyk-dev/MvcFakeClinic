@@ -38,7 +38,7 @@ This project is a site made with ASP.NET MVC 5, Entity Framework and Visual Stud
 ###  Tutorials, books and sites used during development:
 
 - [*Getting Started with Entity Framework 6 Code First using MVC 5*, tutorial by Tom Dykstra](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application)
-- [*MVC Music Store" tutorial by Jon Galloway*](https://mvcmusicstore.codeplex.com/)
+- [*MVC Music Store* tutorial by Jon Galloway](https://mvcmusicstore.codeplex.com/)
 - [MSDN Microsoft](https://msdn.microsoft.com)
 - [Book *Pro ASP.NET MVC 4 by Adam Freeman*](http://www.apress.com/us/book/9781430242369)
 
@@ -52,10 +52,10 @@ Free-license pictures come from:
 - [Kaboompics](http://www.kaboompics.com)
 - [Gratisography](http://www.gratisography.com)
 - [Burst](https://burst.shopify.com)
-- [Foter](http://foter.com
+- [Foter](http://foter.com)
 
 Architecture photos by [Bernard Spragg](https://www.flickr.com/photos/volvob12b/)
-Logo made by [Freepik](www.freepik.com) from [Flaticon](www.flaticon.com) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+Logo made by [Freepik](http://freepik.com) from [Flaticon](http://flaticon.com) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 
 Doctor photos:
 - [Image created by Kues - Freepik.com](http://www.freepik.com/free-photo/doctor-smiling-with-stethoscope_916503.htm)
