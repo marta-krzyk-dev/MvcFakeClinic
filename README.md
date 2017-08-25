@@ -34,3 +34,10 @@ This project is a site made with ASP.NET MVC 5, Entity Framework and Visual Stud
 
 ## Details about a department
 ![alt tag](https://github.com/marta-krzyk-dev/MvcFakeClinic/blob/master/Printscreens/department-details.png?raw=true)
+
+###  Tutorials, books and sites used during development:
+
+- ["Getting Started with Entity Framework 6 Code First using MVC 5", tutorial by Tom Dykstra](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application)
+- ["MVC Music Store" tutorial by Jon Galloway](https://mvcmusicstore.codeplex.com/)
+        <li>@HtmlHelpers.HyperLinkIfLinkExists("https://msdn.microsoft.com", "MSDN Microsoft")</li>
+        <li>@HtmlHelpers.HyperLinkIfLinkExists("http://www.apress.com/us/book/9781430242369", "Book \"Pro ASP.NET MVC 4\" by Adam Freeman")</li>
